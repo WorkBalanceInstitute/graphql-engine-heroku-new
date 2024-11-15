@@ -10,6 +10,7 @@ ENV HASURA_GRAPHQL_DEV_MODE=true
 # https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier
 ENV HASURA_GRAPHQL_PG_CONNECTIONS=15
 
-CMD HASURA_GRAPHQL_METADATA_DATABASE_URL=$DATABASE_URL graphql-engine \
+CMD ./bin/fixie-wrench-linux-amd64 $POSTGRES_PORT:$POSTGRES_HOST:$POSTGRES_PORT & \
+    HASURA_GRAPHQL_METADATA_DATABASE_URL=$DATABASE_URL graphql-engine \
     serve \
     --server-port $PORT
